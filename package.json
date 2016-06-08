@@ -1,3 +1,24 @@
 {
-  
+  "name": "nuvuprint-raspi-software",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "serialport": "^3.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NuVu-Print/nuvu-print-rasPi-software.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NuVu-Print/nuvu-print-rasPi-software/issues"
+  },
+  "homepage": "https://github.com/NuVu-Print/nuvu-print-rasPi-software#readme"
 }

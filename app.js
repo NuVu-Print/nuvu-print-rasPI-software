@@ -4,6 +4,16 @@ const SerialPort = require("serialport")
 const _ = require('lodash')
 const every = require('every-time-mirror')
 
+let lines = []
+let lineReader = require('readline').createInterface({
+  input: require('fs').createReadStream('teensy.gcode')
+})
+lineReader.on('line', (line) => {
+  if(line.charAt(0) !== ';' && line) {
+    lines.push(line.split(';'[0]))
+  }
+})
+
 SerialPort.list((err, ports) => {
   let printerPort = ports[0].comName
   _.forEach(ports, (port) => {
@@ -15,23 +25,29 @@ SerialPort.list((err, ports) => {
   })
 
   printer.on('open', () => {
+    let started = false
+    let currCommand = 0
     printer.on('data', (data) => {
+      console.log(data)
+      if(started === true && currCommand < lines.length) {
+        if(data === 'ok') {
+          Gsend(printer, lines[currCommand])
+          currCommand++
+        }
+      }
       if(data === 'start') {
-        sendGcode('teensy')
+        console.log('WE GOOD TO GO')
+        setTimeout(() => {
+          Gsend(printer, lines[0])
+        }, 500)
+        currCommand++
+        started = true
       }
     })
   })
 })
 
-
-
-// let serialPort = new SerialPort("//file location", {
-//   baudrate: 250000
-// });
-
-function sendGcode(file) {
-  let gcodefile = file + ".gcode";
-  let lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream(gcodefile)
-  })
+let Gsend = (printer, command) => {
+  printer.write(command + '\n')
+  console.log('SEND: ' + command)
 }

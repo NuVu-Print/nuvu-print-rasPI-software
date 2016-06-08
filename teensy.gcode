@@ -7,7 +7,6 @@
 ; top infill extrusion width = 0.72mm
 
 M107
-M104 S200 ; set temperature
 G28 ; home all axes
 G1 Z5 F5000 ; lift nozzle
 
@@ -1823,7 +1822,7 @@ M84     ; disable motors
 ; avoid_crossing_perimeters = 0
 ; bed_shape = 0x0,200x0,200x200,0x200
 ; bed_temperature = 0
-; before_layer_gcode = 
+; before_layer_gcode =
 ; bridge_acceleration = 0
 ; bridge_fan_speed = 100
 ; brim_width = 0
@@ -1852,20 +1851,20 @@ M84     ; disable motors
 ; gcode_flavor = reprap
 ; infill_acceleration = 0
 ; infill_first = 0
-; layer_gcode = 
+; layer_gcode =
 ; max_fan_speed = 100
 ; max_print_speed = 80
 ; max_volumetric_speed = 0
 ; min_fan_speed = 35
 ; min_print_speed = 10
 ; min_skirt_length = 0
-; notes = 
+; notes =
 ; nozzle_diameter = 0.5
 ; only_retract_when_crossing_perimeters = 1
 ; ooze_prevention = 0
 ; output_filename_format = [input_filename_base].gcode
 ; perimeter_acceleration = 0
-; post_process = 
+; post_process =
 ; pressure_advance = 0
 ; resolution = 0
 ; retract_before_travel = 2
@@ -1885,7 +1884,7 @@ M84     ; disable motors
 ; start_gcode = G28 ; home all axes\nG1 Z5 F5000 ; lift nozzle\n
 ; temperature = 200
 ; threads = 2
-; toolchange_gcode = 
+; toolchange_gcode =
 ; travel_speed = 130
 ; use_firmware_retraction = 0
 ; use_relative_e_distances = 0

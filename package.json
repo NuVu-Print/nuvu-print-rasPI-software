@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "dependencies": {
+    "every-time-mirror": "0.0.0",
     "lodash": "^4.13.1",
     "serialport": "^3.1.2"
   },

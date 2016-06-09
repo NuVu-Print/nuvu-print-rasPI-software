@@ -6,7 +6,7 @@ const every = require('every-time-mirror')
 
 let lines = []
 let lineReader = require('readline').createInterface({
-  input: require('fs').createReadStream('test.gcode')
+  input: require('fs').createReadStream('reed.gcode')
 })
 lineReader.on('line', (line) => {
   if(line.charAt(0) !== ';' && line) {

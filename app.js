@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 const fs = require('fs')
-const SerialPort = require("serialport")
+const SerialPort = require('serialport')
 const _ = require('lodash')
 const every = require('every-time-mirror')
+const package = require('./package.json')
 
 let lines = []
 let lineReader = require('readline').createInterface({
@@ -15,16 +16,29 @@ lineReader.on('line', (line) => {
 })
 
 SerialPort.list((err, ports) => {
-  let printerPort = ports[0].comName
+  let chosenPort = ports[0].comName
   _.forEach(ports, (port) => {
-    if(~_.lowerCase(port.manufacturer).indexOf('ultimachine')) printerPort = port.comName
+    if(~_.lowerCase(port.manufacturer).indexOf('ultimachine')) chosenPort = port
   })
-  let printer = new SerialPort.SerialPort(printerPort, {
+  let printer = new SerialPort.SerialPort(chosenPort.comName, {
     baudrate: 115200,
     parser: SerialPort.parsers.readline('\n')
   })
 
   printer.on('open', () => {
+
+    const socket = require('socket.io-client')('ws://localhost:2001')
+    socket.on('connect', () => {
+      console.log(chosenPort)
+      socket.emit('selfID', {
+        type: 'printer',
+        comName: chosenPort.comName,
+        manufacturer: chosenPort.manufacturer,
+        serialNumber: chosenPort.serialNumber,
+        version: package.version
+      })
+    })
+
     let started = false
     let currCommand = 0
     printer.on('data', (data) => {
